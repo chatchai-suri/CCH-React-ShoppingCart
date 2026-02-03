@@ -33,6 +33,10 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      "no-unused-vars": ["warn", { 
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_" 
+      }],
     },
   },
 ]
