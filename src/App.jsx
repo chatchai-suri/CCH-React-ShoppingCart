@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CartSummary from "./components/CartSummary"
 import Header from "./components/Header"
 import ProductList from "./components/ProductList"
@@ -9,8 +9,17 @@ function App() {
   // State
   const [products, setProducts] = useState([])
   const [carts, setCarts] = useState([])
+
   // Function
-  
+  const fecthProducts = () => {
+    fetch('http://localhost:8000/products')
+    .then(resp => resp.json())
+    .then(data => setProducts(data))
+  }
+
+  useEffect( ()=> {
+    fecthProducts()
+  }, [])
 
   // ------ JSX area
   return (

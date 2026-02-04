@@ -13,7 +13,8 @@ function ProductList(props) {
   return (
     <div className="w-2/3 bg-gray-300">
       <h2>Product</h2>
-      <ProductCard products={products} />
+      <ProductCard />
+      <pre>{JSON.stringify(products, null, 2)}</pre>
     </div>
   );
 }
