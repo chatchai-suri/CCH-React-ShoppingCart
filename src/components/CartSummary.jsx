@@ -10,9 +10,9 @@ function CartSummary(props) {
     <div className="w-1/3 bg-orange-100">
       <h2 className="text-2xl py-2">Cart Items:</h2>
       <div className="flex flex-col gap-2">
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        {carts.map((el) => (
+          <CartItem key={el.id} item={el} />
+        ))}
       </div>
       <pre>{JSON.stringify(carts, null, 2)}</pre>
     </div>
