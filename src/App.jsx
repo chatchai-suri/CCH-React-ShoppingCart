@@ -74,6 +74,18 @@ function App() {
     })
   }
 
+  const incQuantity = (id) => {
+    setCarts(prev => {
+      const targetItem = prev.find(el => el.id === id)
+      if(targetItem) {
+        return prev.map(el =>
+          el.id === id ? {...el, quantity: el.quantity + 1} : el
+        )
+      }
+    })
+
+  }
+
 
   // ------ JSX area
   return (
@@ -81,7 +93,7 @@ function App() {
       <Header itemCount={carts.length} />
       <div className="flex flex-1">
         <ProductList products={products} addToCard={addToCard}  />
-        <CartSummary carts={carts} decQuantity={decQuantity} />
+        <CartSummary carts={carts} decQuantity={decQuantity} incQuantity={incQuantity} />
       </div>
     </div>
   )
