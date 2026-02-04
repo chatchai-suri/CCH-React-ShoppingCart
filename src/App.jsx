@@ -23,18 +23,55 @@ function App() {
     .then(data => setProducts(data))
   }
 
-  const addToCard = (id, title, price) => {
-    
-    const index = carts.findIndex((el) => el.id === id)
-    if(index === -1){
-      let newItem = {id: id, title: title, price: price, quantity: 1}
-      setCarts([...carts, newItem])
-    } else {
-      const newCarts = [...carts]
-      newCarts[index] = {...newCarts[index], quantity: newCarts[index].quantity+1}
-      setCarts(newCarts)
-    }
+  // const addToCard = (id, title, price) => {
+  //   const isExist = carts.some(el => el.id === id)
+  //   if(!isExist) {
+  //     const newItem = {id, title, price, quantity: 1}
+  //     setCarts([...carts, newItem])
+  //   } else {
+  //     const newCarts = carts.map(el => (
+  //       el.id === id
+  //       ? {...el, quantity: el.quantity + 1}
+  //       : el
+  //     ))
+  //     setCarts(newCarts)
+  //   }
+  // }
 
+  const addToCard = (id, title, price) => {
+    setCarts(prev => {
+      const isExist = prev.some(el => el.id === id)
+      if(!isExist) {
+        return[...prev, {id, title, price, quantity: 1}]
+      }
+      return prev.map(el =>
+        el.id === id ? {...el, quantity: el.quantity + 1} : el
+      )
+    })
+  }
+
+  // const decQuantity = (id) => {
+  //   const index = carts.findIndex( el => el.id === id)
+  //   if(carts[index].quantity > 1) {
+  //     const newCarts = [...carts]
+  //     newCarts[index] = {...newCarts[index], quantity: newCarts[index].quantity-1}
+  //     setCarts(newCarts)
+  //   } else {
+  //     const newCarts = carts.filter((el)=> el.id !== id) 
+  //     setCarts(newCarts)
+  //   }
+  // }
+
+  const decQuantity = (id) => {
+    setCarts(prev => {
+      const targetItem = prev.find(el => el.id === id)
+      if(targetItem && targetItem.quantity > 1) {
+        return prev.map(el => 
+          el.id == id ? {...el, quantity: el.quantity - 1} : el
+        )
+      }
+      return prev.filter(el => el.id !== id)
+    })
   }
 
 
@@ -43,8 +80,8 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <Header itemCount={carts.length} />
       <div className="flex flex-1">
-        <ProductList products={products} addToCard={addToCard} />
-        <CartSummary carts={carts} />
+        <ProductList products={products} addToCard={addToCard}  />
+        <CartSummary carts={carts} decQuantity={decQuantity} />
       </div>
     </div>
   )
