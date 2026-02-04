@@ -24,8 +24,17 @@ function App() {
   }
 
   const addToCard = (id, title, price) => {
-    let newItem = {id: id, title: title, price: price, quantity: 1}
-    setCarts([...carts, newItem])
+    
+    const index = carts.findIndex((el) => el.id === id)
+    if(index === -1){
+      let newItem = {id: id, title: title, price: price, quantity: 1}
+      setCarts([...carts, newItem])
+    } else {
+      const newCarts = [...carts]
+      newCarts[index] = {...newCarts[index], quantity: newCarts[index].quantity+1}
+      setCarts(newCarts)
+    }
+
   }
 
 
