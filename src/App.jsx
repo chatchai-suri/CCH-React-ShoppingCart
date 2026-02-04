@@ -1,12 +1,18 @@
+import CartSummary from "./components/CartSummary"
+import Header from "./components/Header"
+import ProductList from "./components/ProductList"
 
 
 function App() {
   
 
   return (
-    <div className="app">
-     <h1 className="text-3xl text-amber-300">Hello, Papoo!</h1>
-     <button className="btn btn-primary">Click Me</button>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <div className="flex flex-1">
+        <ProductList />
+        <CartSummary />
+      </div>
     </div>
   )
 }
