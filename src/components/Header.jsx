@@ -1,11 +1,19 @@
 import _React from "react";
 import CartCount from "./CartCount";
 
-function Header() {
+function Header(props) {
+  // ------ JS area ------
+  const {itemCount} = props
+  // State
+  
+
+  // Function
+
+  // ------ JSX area ------
   return (
-    <div className="flex justify-between h-15 bg-info">
+    <div className="flex justify-between min-h-20 bg-info">
       <div>Logo, Brand</div>
-      <CartCount />
+      <CartCount itemCount={itemCount} />
     </div>
   );
 }

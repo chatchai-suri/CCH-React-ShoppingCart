@@ -1,11 +1,19 @@
-import _React from "react";
+import {_useState} from "react";
 import ProductCard from "./ProductCard";
 
-function ProductList() {
+function ProductList(props) {
+  // ------ JS area ------
+  const {products} = props
+  // State
+  
+
+  // Function
+
+  // ------ JSX area ------
   return (
     <div className="w-2/3 bg-gray-300">
       <h2>Product</h2>
-      <ProductCard />
+      <ProductCard products={products} />
     </div>
   );
 }

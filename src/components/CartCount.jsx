@@ -1,8 +1,13 @@
 import _React from 'react'
 
-function CartCount() {
+function CartCount(props) {
+  // ------ JS area ------
+  const {itemCount} = props
+  // State
+
+  // ------ JSX area ------
   return (
-    <div>CartCount</div>
+    <div>CartCount: {itemCount}</div>
   )
 }
 
