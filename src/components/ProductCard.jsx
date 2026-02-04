@@ -3,7 +3,8 @@ import _React, { useState } from "react";
 function ProductCard(props) {
   // ------ JS area ------
   const {
-    productItem: { id, category, description, title, images, price, rating },
+    productItem: { id, category, description, title, images, price, _rating },
+    addToCard
   } = props;
 
   // State
@@ -17,12 +18,12 @@ function ProductCard(props) {
         <img src={images} alt={title} className="h-full w-full object-contain"/>
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <p>{category}</p>
+        <h2 className="card-title line-clamp-1">{title}</h2>
+        <p className="text-sm text-pink-400 text-center">{category}</p>
         <p className={`${showDesc ? '' : 'line-clamp-2'} cursor-pointer hover:text-blue-600 transition-colors `} onClick={()=>setShowDesc(prev=>!prev)} >{description}</p>
-        <p>{price}</p>
+        <p className="text-slate-700 text-2xl">฿{price.toLocaleString()}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button className="btn btn-primary" onClick={()=>addToCard(id, title, price)} >Add to Cart</button>
         </div>
       </div>
     </div>

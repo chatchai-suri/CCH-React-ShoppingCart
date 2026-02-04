@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 
 function ProductList(props) {
   // ------ JS area ------
-  const { products } = props;
+  const { products, addToCard } = props;
   console.log(products[0]);
   // State
 
@@ -11,11 +11,11 @@ function ProductList(props) {
 
   // ------ JSX area ------
   return (
-    <div className="w-2/3 bg-gray-300">
-      <h2>Product List</h2>
-      <div className="flex flex-col gap-2 ps-2">
+    <div className="w-2/3 bg-gray-300 ps-2">
+      <h2 className="text-2xl py-2">Product List</h2>
+      <div className="flex flex-wrap gap-3">
         {products.map((el) => (
-          <ProductCard key={el.id} productItem={el} />
+          <ProductCard key={el.id} productItem={el} addToCard={addToCard}/>
         ))}
       </div>
     </div>

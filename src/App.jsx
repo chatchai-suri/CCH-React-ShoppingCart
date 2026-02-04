@@ -10,23 +10,31 @@ function App() {
   const [products, setProducts] = useState([])
   const [carts, setCarts] = useState([])
 
+  // const cart = {id, title, price, quantity}
+
   // Function
+  useEffect( ()=> {
+    fecthProducts()
+  }, [])
+
   const fecthProducts = () => {
     fetch('http://localhost:8000/products')
     .then(resp => resp.json())
     .then(data => setProducts(data))
   }
 
-  useEffect( ()=> {
-    fecthProducts()
-  }, [])
+  const addToCard = (id, title, price) => {
+    let newItem = {id: id, title: title, price: price, quantity: 1}
+    setCarts([...carts, newItem])
+  }
+
 
   // ------ JSX area
   return (
     <div className="min-h-screen flex flex-col">
       <Header itemCount={carts.length} />
       <div className="flex flex-1">
-        <ProductList products={products} />
+        <ProductList products={products} addToCard={addToCard} />
         <CartSummary carts={carts} />
       </div>
     </div>
