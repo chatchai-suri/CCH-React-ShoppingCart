@@ -86,10 +86,10 @@ function App() {
   }
 
 
-  // ------ JSX area
+  // ------ JSX area ------
   return (
     <div className="min-h-screen flex flex-col">
-      <Header itemCount={carts.length} />
+      <Header carts={carts} />
       <div className="flex flex-1">
         <ProductList products={products} addToCard={addToCard}  />
         <CartSummary carts={carts} decQuantity={decQuantity} incQuantity={incQuantity} />

@@ -2,8 +2,8 @@ import _React from 'react'
 
 function CartCount(props) {
   // ------ JS area ------
-  const {itemCount} = props
-  // State
+  const {carts} = props
+  const itemCount = carts.reduce((acc, el) => (acc + el.quantity), 0) 
 
   // ------ JSX area ------
   return (

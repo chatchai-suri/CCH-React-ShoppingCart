@@ -3,7 +3,7 @@ import CartCount from "./CartCount";
 
 function Header(props) {
   // ------ JS area ------
-  const {itemCount} = props
+  const {carts} = props
   // State
   
 
@@ -13,7 +13,7 @@ function Header(props) {
   return (
     <div className="flex justify-between min-h-20 bg-info">
       <div>Logo, Brand</div>
-      <CartCount itemCount={itemCount} />
+      <CartCount carts={carts} />
     </div>
   );
 }
