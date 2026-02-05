@@ -24,66 +24,65 @@ function App() {
   }
 
   // const addToCard = (id, title, price) => {
-  //   const isExist = carts.some(el => el.id === id)
-  //   if(!isExist) {
-  //     const newItem = {id, title, price, quantity: 1}
-  //     setCarts([...carts, newItem])
-  //   } else {
-  //     const newCarts = carts.map(el => (
-  //       el.id === id
-  //       ? {...el, quantity: el.quantity + 1}
-  //       : el
-  //     ))
-  //     setCarts(newCarts)
-  //   }
+  //   setCarts(prev => {
+  //     const isExist = prev.some(el => el.id === id)
+  //     if(!isExist) {
+  //       return[...prev, {id, title, price, quantity: 1}]
+  //     }
+  //     return prev.map(el =>
+  //       el.id === id ? {...el, quantity: el.quantity + 1} : el
+  //     )
+  //   })
   // }
-
-  const addToCard = (id, title, price) => {
-    setCarts(prev => {
-      const isExist = prev.some(el => el.id === id)
-      if(!isExist) {
-        return[...prev, {id, title, price, quantity: 1}]
-      }
-      return prev.map(el =>
-        el.id === id ? {...el, quantity: el.quantity + 1} : el
-      )
-    })
-  }
 
   // const decQuantity = (id) => {
-  //   const index = carts.findIndex( el => el.id === id)
-  //   if(carts[index].quantity > 1) {
-  //     const newCarts = [...carts]
-  //     newCarts[index] = {...newCarts[index], quantity: newCarts[index].quantity-1}
-  //     setCarts(newCarts)
-  //   } else {
-  //     const newCarts = carts.filter((el)=> el.id !== id) 
-  //     setCarts(newCarts)
-  //   }
+  //   setCarts(prev => {
+  //     const targetItem = prev.find(el => el.id === id)
+  //     if(targetItem && targetItem.quantity > 1) {
+  //       return prev.map(el => 
+  //         el.id == id ? {...el, quantity: el.quantity - 1} : el
+  //       )
+  //     }
+  //     return prev.filter(el => el.id !== id)
+  //   })
   // }
 
-  const decQuantity = (id) => {
-    setCarts(prev => {
-      const targetItem = prev.find(el => el.id === id)
-      if(targetItem && targetItem.quantity > 1) {
-        return prev.map(el => 
-          el.id == id ? {...el, quantity: el.quantity - 1} : el
-        )
-      }
-      return prev.filter(el => el.id !== id)
-    })
+  // const incQuantity = (id) => {
+  //   setCarts(prev => {
+  //     const targetItem = prev.find(el => el.id === id)
+  //     if(targetItem) {
+  //       return prev.map(el =>
+  //         el.id === id ? {...el, quantity: el.quantity + 1} : el
+  //       )
+  //     }
+  //   })
+  // }
+
+  // try to clean and reuse function among addToCard, decQualtity, incQuantity
+  const updateQuantity = (id, amount) => {
+    setCarts(prev => prev.map(el =>
+      el.id === id ? {...el, quantity: el.quantity + amount} : el
+    ))
   }
 
-  const incQuantity = (id) => {
-    setCarts(prev => {
-      const targetItem = prev.find(el => el.id === id)
-      if(targetItem) {
-        return prev.map(el =>
-          el.id === id ? {...el, quantity: el.quantity + 1} : el
-        )
-      }
-    })
+  const addToCard = (id, title, price) => {
+    const isExist = carts.some(el => el.id === id)
+    if(!isExist) {
+      setCarts(prev => [...prev, {id, title, price, quantity: 1}])
+    } else {
+      updateQuantity(id, 1)
+    }
+  }
 
+  const incQuantity = (id) => updateQuantity(id, 1)
+
+  const decQuantity = (id) => {
+    const targetItem = carts.find(el => el.id === id)
+    if(targetItem && targetItem.quantity > 1) {
+      updateQuantity(id, -1)
+    } else {
+      setCarts(prev => prev.filter(el => el.id !== id))
+    }
   }
 
 
